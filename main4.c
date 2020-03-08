@@ -105,61 +105,93 @@ void do_dir(const char * dir_name, char ** parms) {
 }
 
 
-void do_entry(const char * entry_name, char ** parms)
-{
-    struct stat entry_data;
-    errno=0;
-    int i=0;
-    char buffer[MAXLEN];
-    const char possible_entry[10][MAXLEN] = {"-nogroup","-group", "-nouser", "-user", "-name", "-type", "-path", "-print", "-ls"};
-          
-    while (parms[++i] != NULL){
-        if (*parms[i] == '-'){
-            for (int j = 0; j < 10; j++) {
-            strcpy (buffer,parms[i]);
-                if ((strcmp(possible_entry[j], buffer)) == 0) {
-                printf("Gefunden:%s!!\n",possible_entry[j]); //
-                } 
-                switch (j)
-                {
-                case 0:
-                    do_nogroup(parms[j+1])
-                    break;
-                case 1:
-                    do_group(parms[j+1])
-                    break;
-                case 2:
-                    do_nouser(parms[j+1])
-                    break;
-                case 3:
-                    do_user(parms[j+1])
-                    break;
-                case 4:
-                    do_name(parms[j+1])
-                    break;
-                case 5:
-                    do_type(parms[j+1])
-                    break;
-                case 6:
-                    do_path(parms[j+1])
-                    break;    
-                case 7:
-                    do_print(parms[j+1])
-                    break;    
-                case 8:
-                    do_ls(parms[j+1])
-                    break;
-                        
-
-                default:
-                error(0,errno, "switch-case-default");
-                exit(1);
-                    break;
-                }
-            }
-        }
-        else{
-            do_dir(parms[i],parms);
-        }
+void do_entry(const char * entry_name, char ** parms)                                                                                                             
+{                                                                                                                                                                 
+    struct stat entry_data;                                                                                                                                       
+    errno=0;                                                                                                                                                      
+    int i=0;                                                                                                                                                      
+    char buffer[MAXLEN];                                                                                                                                          
+    const char possible_entry[10][MAXLEN] = {"-nogroup","-group", "-nouser", "-user", "-name", "-type", "-path", "-print", "-ls"};                                
+                                                                                                                                                                  
+    while (parms[++i] != NULL){                                                                                                                                   
+        if (*parms[i] == '-'){ 
+            strcpy(buffer, parms[i]);                                                                                                                                   
+            for (int j = 0; j < 10; j++) {                                                                                                                        
+                                                                                                                                        
+                if ((strcmp(possible_entry[j], buffer)) == 0) {                                                                                                   
+                    printf("Gefunden:%s!!\n", possible_entry[j]); //                                                                                              
+                                                                                                                                                               
+                if (j == 0) {                                                                                                                                      
+                                                                                                                                                                  
+                   do_nogroup(parms[j + 1]);                                                                                                                      
+                                                                                                                                                                  
+                } else if (j == 1) {                                                                                                                               
+                                                                                                                                                                  
+                    do_group(parms[i + 1]);                                                                                                                       
+                                                                                                                                                                  
+                } else if (j == 2) {                                                                                                                               
+                                                                                                                                                                  
+                    do_nouser(parms[i + 1]);                                                                                                                      
+                                                                                                                                                                  
+                } else if (j == 3) {                                                                                                                               
+                                                                                                                                                                  
+                    do_user(parms[i + 1]);                                                                                                                        
+                                                                                                                                                                  
+                } else if (j == 4) {                                                                                                                               
+                                                                                                                                                                  
+                    do_name(parms[i + 1]);                                                                                                                        
+                                                                                                                                                                  
+                } else if (j == 5) {                                                                                                                               
+                                                                                                                                                                  
+                    do_name(parms[i + 1]);                                                                                                                        
+                                                                                                                                                                  
+                } else if (j == 6) {                                                                                                                               
+                                                                                                                                                                  
+                    do_path(parms[i + 1]);                                                                                                                        
+                                                                                                                                                                  
+                } else if (j == 7) {                                                                                                                               
+                                                                                                                                                                  
+                    do_print(parms[i + 1]);                                                                                                                       
+                                                                                                                                                                  
+                } else if (j == 8) {                                                                                                                               
+                                                                                                                                                                  
+                    do_ls(parms[i + 1]);                                                                                                                          
+                                                                                                                                                                  
+                }else{
+                    exit(1);
+                }   
+                }                                                                                                                                                  
+            }                                                                                                                                                     
+        }                                                                                                                                                         
+        else{                                                                                                                                                     
+            do_dir(parms[i],parms);                                                                                                                               
+        }                                                                                                                                                         
+    }                                                                                                                                                             
+}                                                                                                                                                                 
+    static void do_group(char *parms){
+        printf("Group: Gesucht wird nach: %s", parms);
     }
-}
+    static void do_nogroup(char *parms) {
+        printf("NoGroup:Gesucht wird nach: %s", parms);
+    }
+    static void do_nouser(char *parms) {
+        printf("do_nouser Gesucht wird nach: %s", parms);
+    }
+    static void do_user(char *parms) {
+        printf(" do_user Gesucht wird nach: %s", parms);
+    }
+    static void do_name(char *parms) {
+        printf("do_name Gesucht wird nach: %s", parms);
+    }
+    static void do_type(char *parms) {
+        printf(" do_type Gesucht wird nach: %s", parms);
+    }
+    static void do_path(char *parms) {
+        printf("path Gesucht wird nach: %s", parms);
+    }
+    static void do_print(char *parms) {
+        printf("print Gesucht wird nach: %s", parms);
+    }
+    static void do_ls(char *parms) {
+        printf("ls Gesucht wird nach: %s", parms);
+    }
