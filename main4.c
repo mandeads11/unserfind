@@ -107,7 +107,13 @@ void do_dir(const char * dir_name, char ** parms) {
 
 void do_entry(const char * entry_name, char ** parms)                                                                                                             
 {                                                                                                                                                                 
-    struct stat entry_data;                                                                                                                                       
+    struct stat entry_data;
+    /* get information about the file and/or directory*/
+    if (lstat(entry_name, &entry_data) == -1)
+    {
+        error("lstat failed");
+        return;
+    }
     errno=0;                                                                                                                                                      
     int i=0;                                                                                                                                                      
     char buffer[MAXLEN];                                                                                                                                          
