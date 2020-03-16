@@ -77,7 +77,8 @@ static void no_argv(int argc, char ** parms){
 void do_dir(const char * dir_name, char ** parms) {
 
     struct stat st;
-    char wholepath[MAXLEN];
+    const struct dirent *dirent;
+    char wholepath[sizeof(dir_name)+sizeof(dirent->d_name)+1];
     errno=0;
     DIR *dirp;
     dirp = opendir(dir_name);
@@ -93,7 +94,6 @@ void do_dir(const char * dir_name, char ** parms) {
     }
     else {
         printf("wir haben %s gefunden \n",dir_name);
-        const struct dirent *dirent;
         errno = 0;
         while ((dirent = readdir(dirp)) != NULL) {
             
