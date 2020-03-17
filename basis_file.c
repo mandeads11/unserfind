@@ -148,31 +148,31 @@ void do_entry(const char * entry_name, char ** parms){
                     switch (j)
                 {
                 case 0:
-                    do_nogroup(parms[j+1]);
+                    do_nogroup(parms[i+1]);
                     break;
                 case 1:
-                    do_group(parms[j+1]);
+                    do_group(parms[i+1]);
                     break;
                 case 2:
-                    do_nouser(parms[j+1]);
+                    do_nouser(parms[i+1]);
                     break;
                 case 3:
-                    do_user(parms[j+1]);
+                    do_user(parms[i+1]);
                     break;
                 case 4:
                     do_name(entry_name,parms[i + 1]); 
                     break;
                 case 5:
-                    do_type(parms[j+1]);
+                    do_type(parms[i+1]);
                     break;
                 case 6:
-                    do_path(parms[j+1]);
+                    do_path(parms[i+1]);
                     break;    
                 case 7:
-                    do_print(parms[j+1]);
+                    do_print(parms[i+1]);
                     break;    
                 case 8:
-                    do_ls(parms[j+1]);
+                    do_ls(parms[i-1]);
                     break;
 
 
